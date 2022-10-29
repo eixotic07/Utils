@@ -34,6 +34,13 @@ PlayerUtility = {
             return false
         end
     end,
+    getTool = function()
+        for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+            if v:IsA("Tool") then
+                return v
+            end
+        end
+    end,
     isPlayerTargetable = function(Player)
         if not Player.Team then
             return true
