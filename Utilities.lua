@@ -116,4 +116,4 @@ return PlayerUtility
 -- PlayerUtility.canDamage(lplr) -- (Player)
 -- PlayerUtility.isPlayerTargetable(lplr) -- (Player)
 -- PlayerUtility.getHealth(lplr) -- (Player)
--- PlayerUtility.getNearestCharacter(1000, false, true) -- (Range, AddSelf, Return One Player)
+-- PlayerUtility.getNearestCharacter(1000, false, true) -- (Range, AddSelf, Return One Player) -- if Return One Player is false it will return a table else the player
