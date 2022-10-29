@@ -34,10 +34,16 @@ PlayerUtility = {
             return false
         end
     end,
-    getTool = function()
+    getTool = function(ToolName)
         for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
             if v:IsA("Tool") then
-                return v
+                if ToolName then
+                    if v.Name == ToolName then
+                        return v
+                    end
+                else
+                    return v
+                end
             end
         end
     end,
