@@ -94,7 +94,7 @@ PlayerUtility = {
                     end
                 end
             end
-            table.insert(NearbyPlayers, NearestPlayer)
+            return NearestPlayer
         end
         if not ReturnOne and not Self then
             for i,v in pairs(NearbyPlayers) do
@@ -103,7 +103,9 @@ PlayerUtility = {
                 end
             end
         end
-        return NearbyPlayers
+        if not ReturnOne then
+            return NearbyPlayers
+        end
     end
 }
 
