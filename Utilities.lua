@@ -94,7 +94,7 @@ PlayerUtility = {
                     end
                 end
             end
-            if NearestPlayer and NearestPlayer.Character and NearestPlayer.Character:FindFirstChild("HumanoidRootPart") and (lplr.Character.HumanoidRootPart.Position - NearestPlayer.Character.HumanoidRootPart.Position).Magnitude < Range then
+            if NearestPlayer and NearestPlayer.Character:FindFirstChild("HumanoidRootPart") and (lplr.Character.HumanoidRootPart.Position - NearestPlayer.Character.HumanoidRootPart.Position).Magnitude < Range then
                 return NearestPlayer
             end
         end
