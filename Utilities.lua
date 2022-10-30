@@ -94,7 +94,9 @@ PlayerUtility = {
                     end
                 end
             end
-            return NearestPlayer
+            if NearestPlayer and (lplr.Character.HumanoidRootPart.Position - NearestPlayer.Character.HumanoidRootPart.Position).Magnitude < Range then
+                return NearestPlayer
+            end
         end
         if not ReturnOne and not Self then
             for i,v in pairs(NearbyPlayers) do
