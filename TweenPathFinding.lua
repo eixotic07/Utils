@@ -219,8 +219,7 @@ end
 
 function GetNearestSpawn()
     ClosestDistance, ClosestPosition = math.huge, nil
-    local Positions = { Vector3.new(1081, 14, 248), Vector3.new(1170, 17, 275), Vector3.new(1165, 15, 316),
-        Vector3.new(1235, 14, 325) }
+    local Positions = { Vector3.new(1081, 14, 248), Vector3.new(1170, 17, 275), Vector3.new(1165, 15, 316), Vector3.new(1235, 14, 325) }
 
     for i, v in pairs(Positions) do
         if (lplr.Character.HumanoidRootPart.Position - v).Magnitude < ClosestDistance then
@@ -232,19 +231,19 @@ function GetNearestSpawn()
     return ClosestPosition
 end
 
-function ReturnHome(Vehicle)
+function ReturnHome(Vehicle, Status)
     if GetNearestSpawn() == Vector3.new(1081, 14, 248) then
-        GoToPath(Vehicle, { Position = Vector3.new(1081, 14, 248) })
-        GoToPath(Vehicle, { Position = Vector3.new(1170, 17, 275) })
+        GoToPath(Vehicle, { Position = Vector3.new(1081, 14, 248) }, Status)
+        GoToPath(Vehicle, { Position = Vector3.new(1170, 17, 275) }, Status)
     elseif GetNearestSpawn() == Vector3.new(1170, 17, 275) then
-        GoToPath(Vehicle, { Position = Vector3.new(1170, 17, 275) })
+        GoToPath(Vehicle, { Position = Vector3.new(1170, 17, 275) }, Status)
     elseif GetNearestSpawn() == Vector3.new(1165, 15, 316) then
-        GoToPath(Vehicle, { Position = Vector3.new(1165, 15, 316) })
-        GoToPath(Vehicle, { Position = Vector3.new(1170, 17, 275) })
+        GoToPath(Vehicle, { Position = Vector3.new(1165, 15, 316) }, Status)
+        GoToPath(Vehicle, { Position = Vector3.new(1170, 17, 275) }, Status)
     else
-        GoToPath(Vehicle, { Position = Vector3.new(1235, 14, 325) })
-        GoToPath(Vehicle, { Position = Vector3.new(1165, 15, 316) })
-        GoToPath(Vehicle, { Position = Vector3.new(1170, 17, 275) })
+        GoToPath(Vehicle, { Position = Vector3.new(1235, 14, 325) }, Status)
+        GoToPath(Vehicle, { Position = Vector3.new(1165, 15, 316) }, Status)
+        GoToPath(Vehicle, { Position = Vector3.new(1170, 17, 275) }, Status)
     end
 end
 
