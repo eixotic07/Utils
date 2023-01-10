@@ -217,4 +217,35 @@ GoToPath = function(Part, Target, Status)
 	end
 end
 
-return {GoToPath = GoToPath, CheckPath = CheckPath, WalkTween = WalkTween}
+function GetNearestSpawn()
+    ClosestDistance, ClosestPosition = math.huge, nil
+    local Positions = { Vector3.new(1081, 14, 248), Vector3.new(1170, 17, 275), Vector3.new(1165, 15, 316),
+        Vector3.new(1235, 14, 325) }
+
+    for i, v in pairs(Positions) do
+        if (lplr.Character.HumanoidRootPart.Position - v).Magnitude < ClosestDistance then
+            ClosestDistance = (lplr.Character.HumanoidRootPart.Position - v).Magnitude
+            ClosestPosition = v
+        end
+    end
+
+    return ClosestPosition
+end
+
+function ReturnHome(Vehicle)
+    if GetNearestSpawn() == Vector3.new(1081, 14, 248) then
+        GoToPath(Vehicle, { Position = Vector3.new(1081, 14, 248) })
+        GoToPath(Vehicle, { Position = Vector3.new(1170, 17, 275) })
+    elseif GetNearestSpawn() == Vector3.new(1170, 17, 275) then
+        GoToPath(Vehicle, { Position = Vector3.new(1170, 17, 275) })
+    elseif GetNearestSpawn() == Vector3.new(1165, 15, 316) then
+        GoToPath(Vehicle, { Position = Vector3.new(1165, 15, 316) })
+        GoToPath(Vehicle, { Position = Vector3.new(1170, 17, 275) })
+    else
+        GoToPath(Vehicle, { Position = Vector3.new(1235, 14, 325) })
+        GoToPath(Vehicle, { Position = Vector3.new(1165, 15, 316) })
+        GoToPath(Vehicle, { Position = Vector3.new(1170, 17, 275) })
+    end
+end
+
+return {GoToPath = GoToPath, CheckPath = CheckPath, WalkTween = WalkTween, ReturnHome = ReturnHome}
