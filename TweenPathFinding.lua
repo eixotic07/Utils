@@ -205,11 +205,11 @@ GoToPath = function(Part, Target, Speed, Status)
         CurrentlyPathing = true
 
         for i, v in pairs(CurrentPath:GetWaypoints()) do
-            CreateVisualPoint(v.Position)
+            --CreateVisualPoint(v.Position)
         end
 
         for i, v in pairs(CurrentPath:GetWaypoints()) do
-            UpdateVisualPoint(game.Workspace.VisualFolder[tostring(v.Position)].SelectionSphere,false, Color3.new(0.0980392,1,0))
+            --UpdateVisualPoint(game.Workspace.VisualFolder[tostring(v.Position)].SelectionSphere,false, Color3.new(0.0980392,1,0))
             WalkTween(Part, CFrame.new(v.Position.X, v.Position.Y + 2.3, v.Position.Z, unpack(GetRelativeComponents(v.Position + Vector3.new(0, 4.5,0)))),Speed)
 
             local Waypoints = 0
@@ -219,7 +219,7 @@ GoToPath = function(Part, Target, Speed, Status)
 
             Status:Set("Status : " .. i .. "/" .. Waypoints)
 
-        	UpdateVisualPoint(game.Workspace.VisualFolder[tostring(v.Position)].SelectionSphere, true)
+        	--UpdateVisualPoint(game.Workspace.VisualFolder[tostring(v.Position)].SelectionSphere, true)
 		end
 		Status:Set("Pathing complete!")
 		CurrentlyPathing = false
