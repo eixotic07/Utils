@@ -12,7 +12,7 @@ local PFS = game:GetService("PathfindingService")
 local lplr = game:GetService("Players").LocalPlayer
 
 -- shared
-shared.BlockedParts
+shared.BlockedParts = false
 
 -- functions
 
