@@ -56,6 +56,15 @@ WalkTween = function(Root, Target, Speed)
     Root.Velocity = Vector3.zero
 end
 
+GetRelativeComponents = function(vec)
+    if lplr.Character.PrimaryPart then
+        local newCF = CFrame.new(lplr.Character.PrimaryPart.Position, vec)
+        local x, y, z, r00, r01, r02, r10, r11, r12, r20, r21, r22 = newCF:components()
+        return {r00, r01, r02, r10, r11, r12, r20, r21, r22}
+    end
+end
+
+
 CheckPath = function(Part, Target)
 	if not shared.BlockedParts then
 		shared.BlockedParts = {}
