@@ -134,7 +134,7 @@ CheckPath = function(Part, Target)
     end
 end
 
-GoToPath = function(Part, Target, Status)
+GoToPath = function(Part, Target, Speed, Status)
 	if not shared.BlockedParts then
 		shared.BlockedParts = {}
         for i, v in pairs(game.Workspace.Environment.Locations:GetChildren()) do
@@ -210,7 +210,7 @@ GoToPath = function(Part, Target, Status)
 
         for i, v in pairs(CurrentPath:GetWaypoints()) do
             UpdateVisualPoint(game.Workspace.VisualFolder[tostring(v.Position)].SelectionSphere,false, Color3.new(0.0980392,1,0))
-            WalkTween(Part, CFrame.new(v.Position.X, v.Position.Y + 2.3, v.Position.Z, unpack(GetRelativeComponents(v.Position + Vector3.new(0, 4.5,0)))),50)
+            WalkTween(Part, CFrame.new(v.Position.X, v.Position.Y + 2.3, v.Position.Z, unpack(GetRelativeComponents(v.Position + Vector3.new(0, 4.5,0)))),Speed)
 
             local Waypoints = 0
             for i, v in pairs(CurrentPath:GetWaypoints()) do
@@ -240,19 +240,19 @@ function GetNearestSpawn()
     return ClosestPosition
 end
 
-function ReturnHome(Vehicle, Status)
+function ReturnHome(Vehicle, Speed, Status)
     if GetNearestSpawn() == Vector3.new(1081, 14, 248) then
-        GoToPath(Vehicle, { Position = Vector3.new(1081, 14, 248) }, Status)
-        GoToPath(Vehicle, { Position = Vector3.new(1170, 17, 275) }, Status)
+        GoToPath(Vehicle, { Position = Vector3.new(1081, 14, 248) }, Speed, Status)
+        GoToPath(Vehicle, { Position = Vector3.new(1170, 17, 275) }, Speed, Status)
     elseif GetNearestSpawn() == Vector3.new(1170, 17, 275) then
-        GoToPath(Vehicle, { Position = Vector3.new(1170, 17, 275) }, Status)
+        GoToPath(Vehicle, { Position = Vector3.new(1170, 17, 275) }, Speed, Status)
     elseif GetNearestSpawn() == Vector3.new(1165, 15, 316) then
-        GoToPath(Vehicle, { Position = Vector3.new(1165, 15, 316) }, Status)
-        GoToPath(Vehicle, { Position = Vector3.new(1170, 17, 275) }, Status)
+        GoToPath(Vehicle, { Position = Vector3.new(1165, 15, 316) }, Speed, Status)
+        GoToPath(Vehicle, { Position = Vector3.new(1170, 17, 275) }, Speed, Status)
     else
-        GoToPath(Vehicle, { Position = Vector3.new(1235, 14, 325) }, Status)
-        GoToPath(Vehicle, { Position = Vector3.new(1165, 15, 316) }, Status)
-        GoToPath(Vehicle, { Position = Vector3.new(1170, 17, 275) }, Status)
+        GoToPath(Vehicle, { Position = Vector3.new(1235, 14, 325) }, Speed, Status)
+        GoToPath(Vehicle, { Position = Vector3.new(1165, 15, 316) }, Speed, Status)
+        GoToPath(Vehicle, { Position = Vector3.new(1170, 17, 275) }, Speed, Status)
     end
 end
 
