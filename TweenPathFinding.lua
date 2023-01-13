@@ -135,8 +135,8 @@ CheckPath = function(Part, Target)
 end
 
 GoToPath = function(Part, Target, Speed, Status)
-	if not shared.BlockedParts then
-		shared.BlockedParts = {}
+    	|if not shared.BlockedParts then
+	shared.BlockedParts = {}
         for i, v in pairs(game.Workspace.Environment.Locations:GetChildren()) do
             if v.Name ~= "PizzaPlanet" and v.Name ~= "Pier_LOD" and v.Name ~= "Pier" then
                 for i, v in pairs(v:GetChildren()) do
@@ -174,56 +174,40 @@ GoToPath = function(Part, Target, Speed, Status)
     end
 
     CurrentyPath = false
-    CurrentWaypoint = nil
+        CurrentWaypoint = nil
 
+        local BoundingBox = Part.Parent:GetBoundingBox()
 
-    if not game.Workspace:FindFirstChild("VisualFolder") then
-        VF = Instance.new("SelectionSphere")
-        VF.Name = "VisualFolder"
-        VF.Parent = game.Workspace
-    end
+        local CurrentPath = PFS:CreatePath({
+            AgentRadius = 2.25,
+            AgentHeight = 2,
+            WaypointSpacing = 0.5,
+            Costs = {
+                Water = math.huge,
+                BlockedArea = math.huge
+            }
+        })
 
-    for i, v in pairs(game.Workspace:FindFirstChild("VisualFolder"):GetChildren()) do
-        UpdateVisualPoint(v.SelectionSphere, true)
-    end
+        CurrentPath:ComputeAsync(lplr.Character.PrimaryPart.Position, Target.Position)
 
-    local BoundingBox = Part.Parent:GetBoundingBox()
+        if CurrentPath.Status == Enum.PathStatus.Success then
+            CurrentlyPathing = true
 
-    local CurrentPath = PFS:CreatePath({
-        AgentRadius = 2.25,
-        AgentHeight = 2,
-        WaypointSpacing = 0.5,
-        Costs = {
-            Water = math.huge,
-            BlockedArea = math.huge
-	    }
-	})
-
-    CurrentPath:ComputeAsync(lplr.Character.PrimaryPart.Position, Target.Position)
-
-    if CurrentPath.Status == Enum.PathStatus.Success then
-        CurrentlyPathing = true
-
-        for i, v in pairs(CurrentPath:GetWaypoints()) do
-            --CreateVisualPoint(v.Position)
-        end
-
-        for i, v in pairs(CurrentPath:GetWaypoints()) do
-            --UpdateVisualPoint(game.Workspace.VisualFolder[tostring(v.Position)].SelectionSphere,false, Color3.new(0.0980392,1,0))
-            WalkTween(Part, CFrame.new(v.Position.X, v.Position.Y + 2.3, v.Position.Z, unpack(GetRelativeComponents(v.Position + Vector3.new(0, 4.5,0)))),Speed)
-
-            local Waypoints = 0
             for i, v in pairs(CurrentPath:GetWaypoints()) do
-                Waypoints = Waypoints + 1
+                WalkTween(Part, CFrame.new(v.Position.X, v.Position.Y + 2.3, v.Position.Z, unpack(GetRelativeComponents(v.Position + Vector3.new(0, 4.5, 0)))), 90)
+
+                local Waypoints = 0
+                for i, v in pairs(CurrentPath:GetWaypoints()) do
+                    Waypoints = Waypoints + 1
+                end
+
+                Status:Set("Status : " .. i .. "/" .. Waypoints)
+
+                --UpdateVisualPoint(game.Workspace.VisualFolder[tostring(v.Position)].SelectionSphere, true)
             end
-
-            Status:Set("Status : " .. i .. "/" .. Waypoints)
-
-        	--UpdateVisualPoint(game.Workspace.VisualFolder[tostring(v.Position)].SelectionSphere, true)
-		end
-		Status:Set("Pathing complete!")
-		CurrentlyPathing = false
-	end
+            Status:Set("Pathing complete!")
+            CurrentlyPathing = false
+        end
 end
 
 function GetNearestSpawn()
