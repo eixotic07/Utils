@@ -135,8 +135,8 @@ CheckPath = function(Part, Target)
 end
 
 GoToPath = function(Part, Target, Speed, Status)
-    	|if not shared.BlockedParts then
-	shared.BlockedParts = {}
+      if not shared.BlockedParts then
+		shared.BlockedParts = {}
         for i, v in pairs(game.Workspace.Environment.Locations:GetChildren()) do
             if v.Name ~= "PizzaPlanet" and v.Name ~= "Pier_LOD" and v.Name ~= "Pier" then
                 for i, v in pairs(v:GetChildren()) do
@@ -173,8 +173,15 @@ GoToPath = function(Part, Target, Speed, Status)
         end
     end
 
-    CurrentyPath = false
+CurrentyPath = false
         CurrentWaypoint = nil
+
+
+        if not game.Workspace:FindFirstChild("VisualFolder") then
+            VF = Instance.new("SelectionSphere")
+            VF.Name = "VisualFolder"
+            VF.Parent = game.Workspace
+        end
 
         local BoundingBox = Part.Parent:GetBoundingBox()
 
@@ -194,7 +201,8 @@ GoToPath = function(Part, Target, Speed, Status)
             CurrentlyPathing = true
 
             for i, v in pairs(CurrentPath:GetWaypoints()) do
-                WalkTween(Part, CFrame.new(v.Position.X, v.Position.Y + 2.3, v.Position.Z, unpack(GetRelativeComponents(v.Position + Vector3.new(0, 4.5, 0)))), 90)
+			
+                WalkTween(Part, CFrame.new(v.Position.X, v.Position.Y + 2.3, v.Position.Z, unpack(GetRelativeComponents(v.Position + Vector3.new(0, 4.5, 0)))), Speed)
 
                 local Waypoints = 0
                 for i, v in pairs(CurrentPath:GetWaypoints()) do
@@ -202,8 +210,6 @@ GoToPath = function(Part, Target, Speed, Status)
                 end
 
                 Status:Set("Status : " .. i .. "/" .. Waypoints)
-
-                --UpdateVisualPoint(game.Workspace.VisualFolder[tostring(v.Position)].SelectionSphere, true)
             end
             Status:Set("Pathing complete!")
             CurrentlyPathing = false
