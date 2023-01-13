@@ -1,3 +1,4 @@
+
 -- Loading Stuff
 local Remotes = loadstring(readfile("Meteor/Bloxburg/Remotes.lua"))()
 
@@ -173,47 +174,46 @@ GoToPath = function(Part, Target, Speed, Status)
         end
     end
 
-CurrentyPath = false
-        CurrentWaypoint = nil
+    CurrentyPath = false
+    CurrentWaypoint = nil
 
 
-        if not game.Workspace:FindFirstChild("VisualFolder") then
-            VF = Instance.new("SelectionSphere")
-            VF.Name = "VisualFolder"
-            VF.Parent = game.Workspace
-        end
+    if not game.Workspace:FindFirstChild("VisualFolder") then
+        VF = Instance.new("SelectionSphere")
+        VF.Name = "VisualFolder"
+        VF.Parent = game.Workspace
+    end
 
-        local BoundingBox = Part.Parent:GetBoundingBox()
+    local BoundingBox = Part.Parent:GetBoundingBox()
 
-        local CurrentPath = PFS:CreatePath({
-            AgentRadius = 2.25,
-            AgentHeight = 2,
-            WaypointSpacing = 0.5,
-            Costs = {
-                Water = math.huge,
-                BlockedArea = math.huge
-            }
-        })
+    local CurrentPath = PFS:CreatePath({
+        AgentRadius = 2.25,
+        AgentHeight = 2,
+        WaypointSpacing = 0.5,
+        Costs = {
+            Water = math.huge,
+            BlockedArea = math.huge
+        }
+    })
 
-        CurrentPath:ComputeAsync(lplr.Character.PrimaryPart.Position, Target.Position)
+    CurrentPath:ComputeAsync(lplr.Character.PrimaryPart.Position, Target.Position)
 
-        if CurrentPath.Status == Enum.PathStatus.Success then
-            CurrentlyPathing = true
+    if CurrentPath.Status == Enum.PathStatus.Success then
+        CurrentlyPathing = true
 
-            for i, v in pairs(CurrentPath:GetWaypoints()) do
+        for i, v in pairs(CurrentPath:GetWaypoints()) do
 			
-                WalkTween(Part, CFrame.new(v.Position.X, v.Position.Y + 2.3, v.Position.Z, unpack(GetRelativeComponents(v.Position + Vector3.new(0, 4.5, 0)))), Speed)
+            WalkTween(Part, CFrame.new(v.Position.X, v.Position.Y + 2.3, v.Position.Z, unpack(GetRelativeComponents(v.Position + Vector3.new(0, 4.5, 0)))), Speed)
 
-                local Waypoints = 0
-                for i, v in pairs(CurrentPath:GetWaypoints()) do
-                    Waypoints = Waypoints + 1
-                end
-
-                Status:Set("Status : " .. i .. "/" .. Waypoints)
+            local Waypoints = 0
+            for i, v in pairs(CurrentPath:GetWaypoints()) do
+                Waypoints = Waypoints + 1
             end
-            Status:Set("Pathing complete!")
-            CurrentlyPathing = false
+            Status:Set("Status : " .. i .. "/" .. Waypoints)
         end
+        Status:Set("Pathing complete!")
+        CurrentlyPathing = false
+    end
 end
 
 function GetNearestSpawn()
