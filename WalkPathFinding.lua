@@ -1,4 +1,4 @@
-local lplr = game.Players.LocalPlayer.Character
+local lplr = game.Players.LocalPlayer
 
 local Controls = require(lplr.PlayerScripts:WaitForChild("PlayerModule")):GetControls()
 function GoToPath(CoordinateFrame)
@@ -14,7 +14,7 @@ function GoToPath(CoordinateFrame)
     })
 
     local Success, errorMessage = pcall(function()
-        PathCreated:ComputeAsync(lplr.Chacter.HumanoidRootPart.Position, CoordinateFrame.Position)
+        PathCreated:ComputeAsync(lplr.Character.HumanoidRootPart.Position, CoordinateFrame.Position)
     end)
     
     if Success and PathCreated.Status == Enum.PathStatus.Success then
@@ -36,4 +36,4 @@ function GoToPath(CoordinateFrame)
     end
 end
 
-return GoToPatH
+return GoToPath
