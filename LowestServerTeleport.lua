@@ -15,10 +15,10 @@ function ServerTeleport()
         ID = tostring(v.id)
 
         if v.playing and tonumber(v.maxPlayers) > tonumber(v.playing) then
-            if tonumber(v.playing) <= LowestServerCap then
+            --if tonumber(v.playing) <= LowestServerCap then
                 LowestServerCap = tonumber(v.playing)
                 LowestId = ID
-            end
+            --end
         end
     end
 
