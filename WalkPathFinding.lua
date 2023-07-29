@@ -14,7 +14,7 @@ function GoToPath(CoordinateFrame)
     })
 
     local Success, errorMessage = pcall(function()
-        PathCreated:ComputeAsync(lplr.Character.HumanoidRootPart.Position, CoordinateFrame.Position)
+        PathCreated:ComputeAsync(lplr.Character.HumanoidRootPart.Position, CoordinateFrame)
     end)
     
     if Success and PathCreated.Status == Enum.PathStatus.Success then
