@@ -21,14 +21,7 @@ function GoToPath(CoordinateFrame)
         getgenv().CurrentlyPathing = true
         
         for i,v in pairs(PathCreated:GetWaypoints()) do
-            lplr.Character.Humanoid.WalkToPoint = v.Position
-            
-            if PathCreated:GetWaypoints()[i + 1] ~= nil and PathCreated:GetWaypoints()[i + 1].Action == Enum.PathWaypointAction.Jump then
-				task.spawn(function()
-					task.wait(0.1)
-					lplr.Character.Humanoid.Jump = true
-				end)
-            end
+	    lplr.Character.Humanoid:MoveTo(v.Position)
         end
 	
 	    getgenv().CurrentlyPathing = false
